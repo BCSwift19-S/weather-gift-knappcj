@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		F32CE3722231D81E0039F590 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32CE3712231D81E0039F590 /* AppDelegate.swift */; };
-		F32CE3742231D81E0039F590 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32CE3732231D81E0039F590 /* ViewController.swift */; };
 		F32CE3772231D81E0039F590 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F32CE3752231D81E0039F590 /* Main.storyboard */; };
 		F32CE3792231D8230039F590 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F32CE3782231D8230039F590 /* Assets.xcassets */; };
 		F32CE37C2231D8230039F590 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F32CE37A2231D8230039F590 /* LaunchScreen.storyboard */; };
+		F32CE3842231D9800039F590 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32CE3832231D9800039F590 /* DetailVC.swift */; };
+		F32CE386223563F90039F590 /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32CE385223563F90039F590 /* ListVC.swift */; };
+		F32CE38A223567C80039F590 /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F32CE389223567C80039F590 /* PageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F32CE36E2231D81E0039F590 /* WeatherGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F32CE3712231D81E0039F590 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F32CE3732231D81E0039F590 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F32CE3762231D81E0039F590 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F32CE3782231D8230039F590 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F32CE37B2231D8230039F590 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F32CE37D2231D8230039F590 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F32CE3832231D9800039F590 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		F32CE385223563F90039F590 /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
+		F32CE389223567C80039F590 /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				F32CE3712231D81E0039F590 /* AppDelegate.swift */,
-				F32CE3732231D81E0039F590 /* ViewController.swift */,
+				F32CE389223567C80039F590 /* PageVC.swift */,
+				F32CE3832231D9800039F590 /* DetailVC.swift */,
+				F32CE385223563F90039F590 /* ListVC.swift */,
 				F32CE3752231D81E0039F590 /* Main.storyboard */,
 				F32CE3782231D8230039F590 /* Assets.xcassets */,
 				F32CE37A2231D8230039F590 /* LaunchScreen.storyboard */,
@@ -135,8 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F32CE3742231D81E0039F590 /* ViewController.swift in Sources */,
+				F32CE386223563F90039F590 /* ListVC.swift in Sources */,
+				F32CE38A223567C80039F590 /* PageVC.swift in Sources */,
 				F32CE3722231D81E0039F590 /* AppDelegate.swift in Sources */,
+				F32CE3842231D9800039F590 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
