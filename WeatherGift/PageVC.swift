@@ -10,8 +10,10 @@ import UIKit
 
 class PageVC: UIPageViewController {
     
+  
+    
     var currentPage: Int = 0
-    var locationsArray = ["Local City", "Munich, Germany", "Cumming, GA", "Buffalo, NY"]
+    var locationsArray = [WeatherLocation]()
     var pageControl: UIPageControl!
     var listButton: UIButton!
     var barButtonWidth: CGFloat = 44
@@ -21,6 +23,9 @@ class PageVC: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
+        var newLocation = WeatherLocation()
+        newLocation.name = ""
+        locationsArray.append(newLocation)
         
         setViewControllers([createDetailVC(forPage: 0)], direction: .forward, animated: false, completion: nil)
         
@@ -61,6 +66,8 @@ class PageVC: UIPageViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let currentViewController = self.viewControllers?[0] as? DetailVC else {return}
+        locationsArray = currentViewController.locationsArray
         if segue.identifier == "ToListVC" {
             let destinaiton = segue.destination as! ListVC
             destinaiton.locationsArray = locationsArray
@@ -105,6 +112,7 @@ extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         }
         return nil
     }
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let currentViewController = pageViewController.viewControllers?[0] as? DetailVC {
             pageControl.currentPage = currentViewController.currentPage
