@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
