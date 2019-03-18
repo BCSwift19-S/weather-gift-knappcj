@@ -21,6 +21,10 @@ class ListVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        WeatherLocation().getWeather {
+            
+        }
 
     }
     
