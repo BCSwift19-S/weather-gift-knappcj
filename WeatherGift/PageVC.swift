@@ -23,7 +23,9 @@ class PageVC: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
-        var newLocation = WeatherLocation()
+        
+        let newLocation = WeatherLocation()
+        newLocation.coordinates = ""
         newLocation.name = ""
         locationsArray.append(newLocation)
         
@@ -95,7 +97,8 @@ class PageVC: UIPageViewController {
 }
 
 extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
         if let currentViewController = viewController as? DetailVC {
             if currentViewController.currentPage < locationsArray.count - 1 {
                 return createDetailVC(forPage: currentViewController.currentPage + 1)
@@ -104,8 +107,9 @@ extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         return nil
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        if let currentViewController = viewController as? DetailVC{
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        
+        if let currentViewController = viewController as? DetailVC {
             if currentViewController.currentPage > 0 {
                 return createDetailVC(forPage: currentViewController.currentPage - 1)
             }
@@ -121,7 +125,7 @@ extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
     @objc func pageControlPressed() {
         guard let currentViewController = self.viewControllers?[0] as? DetailVC else {return}
-            currentPage = currentViewController.currentPage
+        currentPage = currentViewController.currentPage
         if pageControl.currentPage < currentPage {
             setViewControllers([createDetailVC(forPage: pageControl.currentPage)], direction: .reverse, animated: true, completion: nil)
         } else if pageControl.currentPage > currentPage {
@@ -129,5 +133,4 @@ extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
         }
     }
 }
-
 

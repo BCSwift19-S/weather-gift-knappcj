@@ -10,10 +10,11 @@ import UIKit
 import GooglePlaces
 
 class ListVC: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
-    
     @IBOutlet weak var editBarButton: UIBarButtonItem!
+    
     var locationsArray = [WeatherLocation]()
     var currentPage = 0
 
@@ -21,11 +22,6 @@ class ListVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
-        WeatherLocation().getWeather {
-            
-        }
-
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -34,9 +30,9 @@ class ListVC: UIViewController {
             currentPage = (tableView.indexPathForSelectedRow?.row)!
             destination.currentPage = currentPage
             destination.locationsArray = locationsArray
-        
         }
     }
+    
     @IBAction func editBarButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing == true {
             tableView.setEditing(false, animated: true)
@@ -67,43 +63,50 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = locationsArray[indexPath.row].name
         return cell
     }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             locationsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let itemToMove = locationsArray[sourceIndexPath.row]
         locationsArray.remove(at: sourceIndexPath.row)
         locationsArray.insert(itemToMove, at: destinationIndexPath.row)
     }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return (indexPath.row != 0 ? true : false)
+        return (indexPath.row != 0 ? true : false)
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-            return (indexPath.row != 0 ? true : false)
+        return (indexPath.row != 0 ? true : false)
     }
+    
     func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
         return (proposedDestinationIndexPath.row == 0 ? sourceIndexPath : proposedDestinationIndexPath)
     }
-    func updateTable(place: GMSPlace) {
+    
+    func updateTable(place: GMSPlace){
         let newIndexPath = IndexPath(row: locationsArray.count, section: 0)
-        var newWeatherLocation = WeatherLocation()
-        newWeatherLocation.name = place.name!
         let latitude = place.coordinate.latitude
         let longitude = place.coordinate.longitude
-        newWeatherLocation.coordinates = "\(latitude),\(longitude)"
+        let newCoordinates = "\(latitude),\(longitude)"
+        let newWeatherLocation = WeatherLocation()
+        newWeatherLocation.name = place.name!
+        newWeatherLocation.coordinates = newCoordinates
         locationsArray.append(newWeatherLocation)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
+        
     }
 }
-extension ListVC: GMSAutocompleteViewControllerDelegate {
 
+extension ListVC: GMSAutocompleteViewControllerDelegate {
+    
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
         dismiss(animated: true, completion: nil)
         updateTable(place: place)
     }
