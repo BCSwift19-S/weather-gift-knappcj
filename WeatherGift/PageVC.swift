@@ -10,9 +10,7 @@ import UIKit
 
 class PageVC: UIPageViewController {
     
-  
-    
-    var currentPage: Int = 0
+    var currentPage = 0
     var locationsArray = [WeatherLocation]()
     var pageControl: UIPageControl!
     var listButton: UIButton!
@@ -24,18 +22,29 @@ class PageVC: UIPageViewController {
         delegate = self
         dataSource = self
         
-        let newLocation = WeatherLocation()
-        newLocation.coordinates = ""
-        newLocation.name = ""
+        let newLocation = WeatherLocation(name: "", coordinates: "")
         locationsArray.append(newLocation)
         
         setViewControllers([createDetailVC(forPage: 0)], direction: .forward, animated: false, completion: nil)
-        
+        loadLocations()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         configurePageControl()
         configureListButton()
+    }
+    
+    func loadLocations() {
+        guard let locationsEncoded = UserDefaults.standard.value(forKey: "locationsArray") as? Data else {
+            print("Could not load locationsArray data from UserDefaults.")
+            return
+        }
+        let decoder = JSONDecoder()
+        if let locationsArray = try? decoder.decode(Array.self, from: locationsEncoded) as [WeatherLocation] {
+            self.locationsArray = locationsArray
+        } else {
+            print("ERROR: Coudln't decode data read from UserDefaults.")
+        }
     }
     
     func configurePageControl(){
@@ -73,7 +82,8 @@ class PageVC: UIPageViewController {
         if segue.identifier == "ToListVC" {
             let destinaiton = segue.destination as! ListVC
              locationsArray = currentViewController.locationsArray
-            destinaiton.currentPage = currentPage
+             destinaiton.currentPage = currentPage
+            destinaiton.locationsArray = locationsArray
         }
     }
     
